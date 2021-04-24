@@ -29,3 +29,18 @@ python main.py
 
 The `generate_wordcloud.py` will generate wordclouds for each month of a given year.
 
+## Screenshots
+
+Sentiment: ![alt text](https://github.com/Ashinoko/NewsStatsticalAnalysis/blob/main/screen_shots/Figure_1.png "Sentiment")
+Mentions: ![alt text](https://github.com/Ashinoko/NewsStatsticalAnalysis/blob/main/screen_shots/Figure_2.png "Mentions")
+Titles: ![alt text](https://github.com/Ashinoko/NewsStatsticalAnalysis/blob/main/screen_shots/Figure_3.png "Titles")
+WordCloud: ![alt text](https://github.com/Ashinoko/NewsStatsticalAnalysis/blob/main/screen_shots/Cloud_2020.png "WordCloud")
+
+# Future features
+- [ ] More news sources
+- [ ] More historical data
+- [ ] Interactive visualization
+- [ ] More object oriented structure
+- [ ] Better sentiment analysis
+- [ ] Other Natural Language Processing models
+- [ ] Deploying as a separate website
