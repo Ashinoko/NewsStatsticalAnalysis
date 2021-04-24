@@ -18,7 +18,7 @@ pip install -r requirements.txt
 Running the code `scraper.py` will start scraping armenpress.com website for news, and stores the results in `data/armenpress/`
 
 ### Processing
-Running the code `processor.py` will start processing scrapped data from `data/armenpress/, and creates a `csv` file in the root folder
+Running the code `processor.py` will start processing scrapped data from `data/armenpress/`, and creates a `csv` file in the root folder
 
 ### Running
 The `main.py` will access the `updated-data.csv` to generate graphs and insights.
@@ -28,6 +28,11 @@ python main.py
 ```
 
 The `generate_wordcloud.py` will generate wordclouds for each month of a given year.
+
+#### Data
+You can access the scraped data here:
+
+You can download the final processed version until (2021/04/23) here:
 
 ## Screenshots
 
