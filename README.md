@@ -30,9 +30,10 @@ python main.py
 The `generate_wordcloud.py` will generate wordclouds for each month of a given year.
 
 #### Data
-You can access the scraped data here:
 
-You can download the final processed version until (2021/04/23) here:
+You can access the scraped data [here](https://drive.google.com/file/d/1mYCpbHB1_dCjVp5dEN0Nq3FhwTTrlJxI/view).
+
+You can download the final processed version until (2021/04/23) [here](https://drive.google.com/file/d/1GODohmjsNixT46_6DzMmyXyOiNhrSf1c/view).
 
 ## Screenshots
 
