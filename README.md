@@ -27,7 +27,7 @@ The `main.py` will access the `updated-data.csv` to generate graphs and insights
 python main.py
 ```
 
-The `generate_wordcloud.py` will generate wordclouds for each month of a given year.
+The `generate_wordclouds.py` will generate wordclouds for each month of a given year.
 
 #### Data
 
@@ -45,8 +45,8 @@ WordCloud: ![alt text](https://github.com/Ashinoko/NewsStatsticalAnalysis/blob/m
 # Future features
 - [ ] More news sources
 - [ ] More historical data
-- [ ] Interactive visualization
-- [ ] More object oriented structure
+- [X] Interactive visualization
+- [X] More object oriented structure
 - [ ] Better sentiment analysis
 - [ ] Other Natural Language Processing models
 - [ ] Deploying as a separate website
