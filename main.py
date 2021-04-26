@@ -1,66 +1,30 @@
-import matplotlib.pyplot as plt
-import seaborn as sns
-import pandas as pd
+from scraper import Scraper
+from processor import Processor
+from generate_wordclouds import Clouds
+from generate_graphs import Graphs
 
-sns.set_theme(style="whitegrid")
-
-
-colors = [(0.9019607843137255, 0.09803921568627451, 0.29411764705882354), (0.23529411764705882, 0.7058823529411765, 0.29411764705882354), (1.0, 0.8823529411764706, 0.09803921568627451), (0.0, 0.5098039215686274, 0.7843137254901961), (0.9607843137254902, 0.5098039215686274, 0.18823529411764706), (0.5686274509803921, 0.11764705882352941, 0.7058823529411765), (0.27450980392156865, 0.9411764705882353, 0.9411764705882353), (0.9411764705882353, 0.19607843137254902, 0.9019607843137255), (0.8235294117647058, 0.9607843137254902, 0.23529411764705882), (0.9803921568627451, 0.7450980392156863, 0.8313725490196079), (0.0, 0.5019607843137255, 0.5019607843137255), (0.8627450980392157, 0.7450980392156863, 1.0), (0.6666666666666666, 0.43137254901960786, 0.1568627450980392), (1.0, 0.9803921568627451, 0.7843137254901961), (0.5019607843137255, 0.0, 0.0), (0.6666666666666666, 1.0, 0.7647058823529411), (0.5019607843137255, 0.5019607843137255, 0.0), (1.0, 0.8431372549019608, 0.7058823529411765), (0.0, 0.0, 0.5019607843137255), (0.5019607843137255, 0.5019607843137255, 0.5019607843137255), (1.0, 1.0, 1.0), (0.0, 0.0, 0.0)]
-
-df = pd.read_csv("updated-data.csv")
-df["date2"] = pd.to_datetime(df["date2"], format="%Y-%m-%d")
-df.dropna(axis=0, inplace=True, subset=["paragragh_text", "paragraph_id"])
-
-
-def get_set_per_day(word):
-    word_ind = df["paragragh_text"].apply(lambda x: word in x.lower())
-    sent_per_day = df[word_ind][["date2", "score_by_paragraph"]].groupby("date2").mean()
-    sent_per_day = sent_per_day.rolling(45).mean()
-    sent_per_day.columns = [word]
-    return sent_per_day
-
-def get_word_freq_day(word):
-    word_freq = df["paragragh_text"].apply(lambda x: x.lower().count(word))
-    date2 = df[["date2"]].copy()
-    date2["freq"] = word_freq
-    freq_per_day = date2[["date2", "freq"]].groupby("date2").mean()
-    freq_per_day = freq_per_day.rolling(45).mean()
-    freq_per_day.columns = [word]
-    return freq_per_day
-
-def get_title_freq_day(word):
-    title_freq = df["title"].apply(lambda x: str(x).lower().count(word))
-    date2 = df[["date2"]].copy()
-    date2["freq"] = title_freq
-    title_per_day = date2[["date2", "freq"]].groupby("date2").sum()
-    title_per_day = title_per_day.rolling(45).mean()
-    title_per_day.columns = [word]
-    return title_per_day
 
 
 while True:
-    words = input("Please enter words seprated by space(Q for quit): ").split()
+    user_input = str(input("Please input 'g' for the graphs or 'c' for word clouds, 'u'for scraper and database updates, 'q' to quit the program\n")).lower()
 
-    if len(words) == 0:
-        continue
-
-    if words[0].strip().lower() == "q":
+    if user_input == 'q':
+        print('Quiting the program')
         break
 
-    # fig, axes = plt.subplots(3, 1, figsize=(15, 15))
-    # axes = axes.ravel()
-    fig0, ax0 = plt.subplots(figsize=(16, 8))
-    ax0.set_title("Sentiment over time")
-    fig1, ax1 = plt.subplots(figsize=(16, 8))
-    ax1.set_title("Frequencies of word mentions")
-    fig2, ax2 = plt.subplots(figsize=(16, 8))
-    ax2.set_title("Frequencies of news topics")
+    elif user_input =='u':
 
-    for color, w in zip(colors, words):
-        sns.lineplot(data=get_set_per_day(w), palette=[color], linewidth=2, ax=ax0)
+        my_scraper = Scraper()
+        my_scraper.update_data()
 
-        sns.lineplot(data=get_word_freq_day(w), palette=[color], linewidth=2, ax=ax1)
+        my_processor = Processor()
+        my_processor.process_store_csv()
 
-        sns.lineplot(data=get_title_freq_day(w), palette=[color], linewidth=2, ax=ax2)
+    elif user_input == 'g':
+        my_graph = Graphs()
+        my_graph.draw_years_graphs()
 
-    plt.show()
+    elif user_input =='c':
+        my_cloud = Clouds()
+
+        my_cloud.make_years_clouds()
