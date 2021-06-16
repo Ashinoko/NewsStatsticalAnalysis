@@ -19,6 +19,9 @@ class Clouds:
         self.df.dropna(axis=0, inplace=True, subset=["paragragh_text", "paragraph_id", "title"])
         self.title = self.df[["title", "date2"]].drop_duplicates()
 
+    def get_all_possible_years(self):
+        return self.df["date2"].dt.year.unqiue()
+
     def get_year(self):
 
         year = int(input("Please enter a year:"))
@@ -27,12 +30,13 @@ class Clouds:
 
         return year
 
-    def make_clouds(self,year):
+    def make_clouds(self, year, bar):
 
         fig, axes = plt.subplots(3, 4, figsize=(18, 10))
         axes = axes.ravel()
 
         for i in range(12):
+            bar.progress((i+1)/12)
             date = datetime(year, i+1, 1)
 
             month = self.title[(self.title["date2"] > date) & (self.title["date2"] < (date + relativedelta(months=1)))]
@@ -41,6 +45,7 @@ class Clouds:
 
             del word_counter["Armenia"]
             del word_counter["Pm"]
+            del word_counter["’ s"]
 
             if len(word_counter):
                 img = WordCloud(width=800, height=400).generate_from_frequencies(word_counter)
@@ -50,7 +55,7 @@ class Clouds:
                 axes[i].set_title(self.months[i])
 
             date = date + relativedelta(months=1)
-        plt.show()
+        return fig
 
     def make_years_clouds(self):
         year = self.get_year()

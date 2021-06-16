@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import numpy as np
 sns.set_theme(style="whitegrid")
 
 
@@ -47,8 +48,10 @@ class Graphs:
     def draw_graphs(self, words):
         fig0, ax0 = plt.subplots(figsize=(16, 8))
         ax0.set_title("Sentiment over time")
+
         fig1, ax1 = plt.subplots(figsize=(16, 8))
         ax1.set_title("Frequencies of word mentions")
+        
         fig2, ax2 = plt.subplots(figsize=(16, 8))
         ax2.set_title("Frequencies of news topics")
 
@@ -59,7 +62,13 @@ class Graphs:
 
             sns.lineplot(data=self.get_title_freq_day(w), palette=[color], linewidth=2, ax=ax2)
 
-        plt.show()
+        return fig0, fig1, fig2
+
+    def get_graph_data(self, words):
+        g1 = np.stack([self.get_set_per_day(w).values for w in words])
+        g2 = np.stack([self.get_word_freq_day(w).values for w in words])
+        g3 = np.stack([self.get_title_freq_day(w).values for w in words])
+        return g1, g2, g3
 
     def draw_years_graphs(self):
         words = self.get_word()
