@@ -1,7 +1,7 @@
 # NewsStatsticalAnalysis
 A framework to scrape, analyze and visualize trends and insights from news sources
 
-This project initialized as course project for university.
+
 
 ## Install
 
